@@ -2,18 +2,20 @@
 ## 
 
 ## makeCacheMatrix takes a square invertible matrix, stores it, and defines
-## four functions: set() to store the original matrix, get() to return the
-## original matrix, setinverse to store a copy of the inverse of the matrix,
-## getinverse() to get the copy of the inverse of the matrix 
+## four functions to store and retrive the data
 
 makeCacheMatrix <- function(originalMatrix = matrix()) {  
-    inversedMatrix <- NULL
+    inversedMatrix <- NULL  #set to NULL as inverse hasen't been created
+    # to store the original matrix
     set <- function(newMatrix) { 
         originalMatrix <<- newMatrix
         inversedMatrix <<- NULL
     }
+    # to return the original matrix
     get <- function() originalMatrix
-    setinverse <- function(aMatrix) i <<- aMatrix
+    #to store a copy of the inverse of the matrix
+    setinverse <- function(aMatrix) inversedMatrix <<- aMatrix
+    # to get the copy of the inverse of the matrix
     getinverse <- function() inversedMatrix
     list(set = set, get = get,
          setinverse = setinverse,
@@ -25,9 +27,9 @@ makeCacheMatrix <- function(originalMatrix = matrix()) {
 ## returns a cached result if this has been called previously
 
 cacheSolve <- function(cachedMatrix, ...) {
-    ## Return a matrix that is the inverse of 'x'
+    ## Return a matrix that is the inverse of the original matrix
     i <- cachedMatrix$getinverse()
-    if(!is.null(i)) {                  
+    if(!is.null(i)) { #if not null means we have cached data and can save CPU time                 
         message("getting cached data")
         return(i)
     }
